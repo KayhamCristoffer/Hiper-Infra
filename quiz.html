@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--  *****   Link do CSS Style    *****  -->
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!--  *****   Link To Font Awsome Icons   *****  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Quiz Hiper-Infra</title>
+	<style>
+		/* Estilo quiz */
+		.quiz-container {
+			width: 100%;
+			padding: 100px 8% 70px;
+			background-color: var(--primary-light-clr);
+			min-height: 100vh;
+		}
+
+		.login-section, .quiz-section, .result-section, .admin-section {
+			max-width: 800px;
+			margin: 0 auto;
+			background-color: white;
+			padding: 40px;
+			border-radius: 10px;
+			box-shadow: 0 15px 40px rgba(0, 0, 0, 0.235);
+		}
+
+		.login-section h2, .quiz-section h2, .result-section h2, .admin-section h2 {
+			color: var(--dark-heading-clr);
+			margin-bottom: 30px;
+			text-align: center;
+		}
+
+		.login-form {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		.login-form input {
+			padding: 15px;
+			border: 2px solid #c1dbcc;
+			border-radius: 5px;
+			font-size: 16px;
+			outline-color: var(--primary-clr);
+		}
+
+		.start-quiz-btn, .admin-btn {
+			padding: 15px;
+			background-color: var(--primary-clr);
+			color: var(--dark-heading-clr);
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.235);
+		}
+
+		.start-quiz-btn:hover, .admin-btn:hover {
+			background-color: var(--dark-heading-clr);
+			color: var(--primary-clr);
+		}
+
+		.question-container {
+			margin-bottom: 30px;
+		}
+
+		.question-text {
+			font-size: 20px;
+			color: var(--dark-heading-clr);
+			margin-bottom: 20px;
+		}
+
+		.answer-option {
+			display: block;
+			margin-bottom: 15px;
+			padding: 15px;
+			background-color: var(--primary-light-clr);
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+
+		.answer-option:hover {
+			background-color: var(--primary-medium-clr);
+		}
+
+		.answer-option.selected {
+			background-color: var(--primary-clr);
+			color: var(--dark-heading-clr);
+			font-weight: bold;
+		}
+
+		.answer-option.correct {
+			background-color: #2ecc71;
+			color: white;
+		}
+
+		.answer-option.incorrect {
+			background-color: #e74c3c;
+			color: white;
+		}
+
+		.explanation {
+			margin-top: 20px;
+			padding: 15px;
+			background-color: #f8f9fa;
+			border-left: 4px solid var(--primary-clr);
+			display: none;
+		}
+
+		.navigation-buttons {
+			display: flex;
+			justify-content: space-between;
+			margin-top: 30px;
+		}
+
+		.nav-btn {
+			padding: 10px 20px;
+			background-color: var(--primary-clr);
+			color: var(--dark-heading-clr);
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+
+		.nav-btn:hover {
+			background-color: var(--dark-heading-clr);
+			color: var(--primary-clr);
+		}
+
+		.nav-btn:disabled {
+			background-color: #cccccc;
+			color: #666666;
+			cursor: not-allowed;
+		}
+
+		.progress-bar {
+			width: 100%;
+			height: 10px;
+			background-color: #e0e0e0;
+			border-radius: 5px;
+			margin-bottom: 30px;
+			overflow: hidden;
+		}
+
+		.progress {
+			height: 100%;
+			background-color: var(--primary-clr);
+			width: 0%;
+			transition: width 0.3s;
+		}
+
+		.result-section h3 {
+			font-size: 24px;
+			color: var(--dark-heading-clr);
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.score {
+			font-size: 48px;
+			font-weight: bold;
+			color: var(--primary-clr);
+			text-align: center;
+			margin: 30px 0;
+		}
+
+		.ranking-container {
+			margin: 30px 0;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			overflow: hidden;
+		}
+
+		.ranking-header {
+			display: flex;
+			background-color: var(--primary-clr);
+			color: var(--dark-heading-clr);
+			font-weight: bold;
+			padding: 10px 15px;
+		}
+
+		.ranking-header div {
+			flex: 1;
+			text-align: center;
+		}
+
+		.ranking-item {
+			display: flex;
+			padding: 10px 15px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.ranking-item div {
+			flex: 1;
+			text-align: center;
+		}
+
+		.ranking-item:last-child {
+			border-bottom: none;
+		}
+
+		.ranking-item:nth-child(1) {
+			background-color: #ffd700;
+		}
+
+		.ranking-item:nth-child(2) {
+			background-color: #c0c0c0;
+		}
+
+		.ranking-item:nth-child(3) {
+			background-color: #cd7f32;
+		}
+
+		.buttons-container {
+			display: flex;
+			justify-content: center;
+			gap: 15px;
+			margin-top: 30px;
+		}
+
+		.action-btn {
+			padding: 12px 25px;
+			background-color: var(--primary-clr);
+			color: var(--dark-heading-clr);
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s;
+		}
+
+		.action-btn:hover {
+			background-color: var(--dark-heading-clr);
+			color: var(--primary-clr);
+		}
+
+		.hidden {
+			display: none;
+		}
+
+		/*  VALIDAÇÃO DE NOME */
+		.name-error {
+			color: #e74c3c;
+			background-color: #fdecea;
+			padding: 12px;
+			border-radius: 5px;
+			margin: 10px 0;
+			border-left: 4px solid #e74c3c;
+			text-align: center;
+			font-size: 14px;
+		}
+
+		.input-error {
+			border-color: #e74c3c !important;
+			animation: shake 0.5s;
+		}
+
+		@keyframes shake {
+			0%, 100% { transform: translateX(0); }
+			20%, 60% { transform: translateX(-5px); }
+			40%, 80% { transform: translateX(5px); }
+		}
+
+		/* Estilos do Admin */
+		.admin-panel {
+			margin-top: 20px;
+		}
+
+		.admin-actions {
+			display: flex;
+			gap: 10px;
+			margin-bottom: 20px;
+		}
+
+		.question-list {
+			max-height: 400px;
+			overflow-y: auto;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+
+		.question-item {
+			padding: 15px;
+			border-bottom: 1px solid #eee;
+			cursor: pointer;
+			transition: all 0.2s;
+		}
+
+		.question-item:hover {
+			background-color: #f5f5f5;
+		}
+
+		.question-item.selected {
+			background-color: #e1f5fe;
+			border-left: 4px solid var(--primary-clr);
+		}
+
+		.question-form {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+		}
+
+		.question-form input, .question-form textarea {
+			padding: 10px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+			font-size: 16px;
+		}
+
+		.question-form textarea {
+			min-height: 80px;
+			resize: vertical;
+		}
+
+		.answer-options-container {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		.answer-option-input {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.answer-option-input input[type="radio"] {
+			margin-right: 5px;
+		}
+
+		.form-actions {
+			display: flex;
+			justify-content: flex-end;
+			gap: 10px;
+			margin-top: 20px;
+		}
+
+		.back-to-login {
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		.back-to-login a {
+			color: var(--primary-clr);
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		.back-to-login a:hover {
+			text-decoration: underline;
+		}
+
+		/* Estilos para os botões de nível */
+		.level-buttons {
+			display: flex;
+			justify-content: space-between;
+			gap: 10px;
+			margin: 20px 0;
+		}
+
+		.level-btn {
+			flex: 1;
+			padding: 12px;
+			background-color: var(--primary-light-clr);
+			color: var(--dark-heading-clr);
+			border: none;
+			border-radius: 5px;
+			font-size: 14px;
+			font-weight: bold;
+			cursor: pointer;
+			transition: all 0.3s;
+			text-align: center;
+		}
+
+		.level-btn:hover {
+			background-color: var(--primary-medium-clr);
+		}
+
+		.level-btn.selected {
+			background-color: var(--primary-clr);
+			color: var(--dark-heading-clr);
+		}
+
+	</style>
+</head>
+<body>
+	<div id="menu"></div>
+<!--   *** Website Container Starts ***   -->
+<div class="website-container">
+<br>
+<br>
+
+<!--   *** Quiz Section Starts ***   -->
+<section class="quiz-container">
+	<!-- Login Section -->
+	<div class="login-section" id="login-section">
+		<h2>Bem-vindo ao Quiz de Hiperconvergência!</h2>
+		<p>Teste seus conhecimentos com este quiz de 10 perguntas selecionadas de acordo com o nível de dificuldade escolhido. Você receberá explicações quando errar a pergunta.</p>
+		<br>
+		<form class="login-form" id="login-form">
+			<input type="text" id="username" placeholder="Digite seu nome" required>
+			<button type="submit" class="start-quiz-btn">Iniciar Quiz</button>
+		</form>
+		<br>
+		<div class="level-buttons">
+			<button class="level-btn" id="easy-btn">Nível fácil</button>
+			<button class="level-btn selected" id="medium-btn">Nível médio</button>
+			<button class="level-btn" id="hard-btn">Nível díficil</button>
+		</div>
+		<div class="admin-panel">
+			<button class="admin-btn" id="admin-login-btn">Modo Administrador</button>
+			<button class="admin-btn" id="ranking-btn">Ranking</button>
+		</div>
+	</div>
+
+	<!-- Admin Login Section -->
+	<div class="login-section hidden" id="admin-login-section">
+		<h2>Acesso Administrativo</h2>
+		<form class="login-form" id="admin-login-form">
+			<input type="password" id="admin-password" placeholder="Digite a senha de administrador" required>
+			<button type="submit" class="start-quiz-btn">Acessar Painel</button>
+		</form>
+		<div class="back-to-login">
+			<a href="#" id="back-to-login">Voltar para tela de login</a>
+		</div>
+	</div>
+
+	<!-- Admin Section -->
+	<div class="admin-section hidden" id="admin-section">
+		<h2>Painel de Administração</h2>
+		<div class="admin-actions">
+			<button class="action-btn" id="add-question-btn">Adicionar Pergunta</button>
+			<button class="action-btn" id="edit-question-btn" disabled>Editar Pergunta</button>
+			<button class="action-btn" id="delete-question-btn" disabled>Remover Pergunta</button>
+		</div>
+		
+		<div class="question-list" id="question-list">
+			<!-- Lista de perguntas será preenchida pelo JavaScript -->
+		</div>
+		
+		<div class="question-form hidden" id="question-form">
+			<input type="text" id="question-text-input" placeholder="Texto da pergunta" required>
+			<select id="difficulty-input" required>
+				<option value="">Selecione a dificuldade</option>
+				<option value="easy">Fácil</option>
+				<option value="medium">Médio</option>
+				<option value="hard">Difícil</option>
+			</select>
+			<div class="answer-options-container">
+				<div class="answer-option-input">
+					<input type="radio" name="correct-answer" value="0" required>
+					<input type="text" id="answer-0" placeholder="Opção 1" required>
+				</div>
+				<div class="answer-option-input">
+					<input type="radio" name="correct-answer" value="1" required>
+					<input type="text" id="answer-1" placeholder="Opção 2" required>
+				</div>
+				<div class="answer-option-input">
+					<input type="radio" name="correct-answer" value="2" required>
+					<input type="text" id="answer-2" placeholder="Opção 3" required>
+				</div>
+				<div class="answer-option-input">
+					<input type="radio" name="correct-answer" value="3" required>
+					<input type="text" id="answer-3" placeholder="Opção 4" required>
+				</div>
+			</div>
+			<textarea id="explanation-input" placeholder="Explicação (aparece quando o usuário erra a pergunta)" required></textarea>
+			<div class="form-actions">
+				<button type="button" class="action-btn" id="cancel-form-btn">Cancelar</button>
+				<button type="button" class="action-btn" id="save-question-btn">Salvar Pergunta</button>
+			</div>
+		</div>
+		
+		<div class="back-to-login">
+			<button class="action-btn" id="back-to-admin-login">Voltar</button>
+		</div>
+	</div>
+
+	<!-- Quiz Section -->
+	<div class="quiz-section hidden" id="quiz-section">
+		<h2>Quiz de Conhecimentos Gerais</h2>
+		<div class="progress-bar">
+			<div class="progress" id="progress-bar"></div>
+		</div>
+		<div class="question-container">
+			<div class="question-text" id="question-text"></div>
+			<div class="answer-options" id="answer-options"></div>
+			<div class="explanation" id="explanation"></div>
+		</div>
+		<div class="navigation-buttons">
+			<button class="nav-btn" id="prev-btn" disabled>Anterior</button>
+			<button class="nav-btn" id="next-btn">Próxima</button>
+		</div>
+	</div>
+
+	<!-- Result Section -->
+	<div class="result-section hidden" id="result-section">
+		<h2>Quiz Concluído!</h2>
+		<h3 id="result-message"></h3>
+		<div class="score" id="score"></div>
+		<p id="result-description"></p>
+		
+		<div class="ranking-container" id="ranking-container">
+			<div class="ranking-header">
+				<div>Posição</div>
+				<div>Nome</div>
+				<div>Pontuação</div>
+			</div>
+			<!-- Ranking será preenchido pelo JavaScript -->
+		</div>
+		
+		<div class="buttons-container">
+			<button class="action-btn" id="restart-btn">Fazer Novamente</button>
+			<button class="action-btn" id="new-quiz-btn">Novo Quiz</button>
+			<button class="action-btn" id="back-to-start-btn">Voltar ao Início</button>
+		</div>
+	</div>
+</section>
+<!--   *** Quiz Section Ends ***   -->
+
+</div>
+<!--   *** Website Container Ends ***   -->
+
+<!--   *** Link To JQuery ***   -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<!--   *** Link To Custom Script File ***   -->
+<script>
+	// Script para o quiz
+	document.addEventListener('DOMContentLoaded', function() {
+		// Variáveis do quiz
+		let currentQuestion = 0;
+		let score = 0;
+		let userAnswers = [];
+		let userName = '';
+		let currentQuestions = [];
+		let ranking = JSON.parse(localStorage.getItem('quizRanking')) || [];
+		let selectedQuestionIndex = -1;
+		let usedQuestionIndices = []; // Armazena índices das perguntas já usadas
+		let currentLevel = 'medium'; // Nível padrão
+		const questionCount = 10; // Quantidade fixa de 10 perguntas
+		
+		// Elementos do DOM
+		const loginSection = document.getElementById('login-section');
+		const adminLoginSection = document.getElementById('admin-login-section');
+		const adminSection = document.getElementById('admin-section');
+		const quizSection = document.getElementById('quiz-section');
+		const resultSection = document.getElementById('result-section');
+		const loginForm = document.getElementById('login-form');
+		const adminLoginForm = document.getElementById('admin-login-form');
+		const questionText = document.getElementById('question-text');
+		const answerOptions = document.getElementById('answer-options');
+		const explanation = document.getElementById('explanation');
+		const prevBtn = document.getElementById('prev-btn');
+		const nextBtn = document.getElementById('next-btn');
+		const progressBar = document.getElementById('progress-bar');
+		const resultMessage = document.getElementById('result-message');
+		const scoreElement = document.getElementById('score');
+		const resultDescription = document.getElementById('result-description');
+		const restartBtn = document.getElementById('restart-btn');
+		const newQuizBtn = document.getElementById('new-quiz-btn');
+		const backToStartBtn = document.getElementById('back-to-start-btn');
+		const rankingContainer = document.getElementById('ranking-container');
+		const adminLoginBtn = document.getElementById('admin-login-btn');
+		const backToLoginBtn = document.getElementById('back-to-login');
+		const backToAdminLoginBtn = document.getElementById('back-to-admin-login');
+		const questionList = document.getElementById('question-list');
+		const questionForm = document.getElementById('question-form');
+		const addQuestionBtn = document.getElementById('add-question-btn');
+		const editQuestionBtn = document.getElementById('edit-question-btn');
+		const deleteQuestionBtn = document.getElementById('delete-question-btn');
+		const cancelFormBtn = document.getElementById('cancel-form-btn');
+		const saveQuestionBtn = document.getElementById('save-question-btn');
+		const easyBtn = document.getElementById('easy-btn');
+		const mediumBtn = document.getElementById('medium-btn');
+		const hardBtn = document.getElementById('hard-btn');
+		const rankingBtn = document.getElementById('ranking-btn');
+		const difficultyInput = document.getElementById('difficulty-input');
+		
+		// Configuração do Admin + senha
+		const ADMIN_PASSWORD = "admin123"; // 
+		
+		// Banco de perguntas 
+		let questionBank = JSON.parse(localStorage.getItem('questionBank')) || [
+			{
+				question: "O que é Infraestrutura Convergente?",
+				answers: [
+					"Um novo tipo de servidor de alta performance.",
+					"Uma forma de gerenciamento de data center que combina componentes legados em um único produto.",
+					"Um software de virtualização avançado.",
+					"Uma técnica para aumentar a velocidade da rede."
+				],
+				correctAnswer: 1,
+				explanation: "Infraestrutura Convergente (CI) é definida como uma abordagem de gerenciamento de data center que integra componentes tradicionalmente separados, como servidores, armazenamento, redes e virtualização, em um único sistema coeso. Isso simplifica a compra, implantação e gerenciamento da infraestrutura.",
+				difficulty: "easy"
+			},
+			{
+				question: "Quais componentes de infraestrutura legada são combinados na Infraestrutura Convergente?",
+				answers: [
+					"Apenas servidores e armazenamento.",
+					"Apenas switches de rede e virtualização.",
+					"Matrizes de armazenamento, servidores, switches de rede e virtualização.",
+					"Apenas hardware e software de orquestração."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Convergente integra os principais componentes tradicionais de um data center, que incluem matrizes de armazenamento para dados, servidores para processamento, switches de rede para conectividade e a camada de virtualização que abstrai os recursos de hardware.",
+				difficulty: "easy"
+			},
+			{
+				question: "Qual o principal benefício da Infraestrutura Convergente?",
+				answers: [
+					"Processo de compra e implantação mais fácil e previsível.",
+					"Maior flexibilidade na escolha dos componentes.",
+					"Melhor desempenho individual dos componentes.",
+					"Menor custo total de hardware."
+				],
+				correctAnswer: 0,
+				explanation: "Um dos principais atrativos da Infraestrutura Convergente é a simplificação do processo de aquisição e implementação. Ao combinar vários componentes em um único SKU, a compra se torna mais direta e a implantação, por ser pré-configurada pelo fornecedor, torna-se mais rápida e com menos variáveis.",
+				difficulty: "easy"
+			},
+			{
+				question: "Como os sistemas de Infraestrutura Convergente são entregues?",
+				answers: [
+					"Como componentes separados que precisam ser integrados pelo cliente.",
+					"Através de um modelo de assinatura mensal.",
+					"Como um software que gerencia o hardware existente.",
+					"Projetados e integrados por um fornecedor, empacotados em opções pré-configuradas."
+				],
+				correctAnswer: 3,
+				explanation: "Os sistemas de Infraestrutura Convergente são fornecidos por um único vendor, que projeta e integra os diversos componentes de hardware e software. Eles são oferecidos em conjuntos pré-configurados, facilitando a implantação e garantindo a compatibilidade entre os elementos.",
+				difficulty: "easy"
+			},
+			{
+				question: "Em relação à infraestrutura legada e multicamadas, qual o objetivo principal da Infraestrutura Convergente?",
+				answers: [
+					"Aumentar a complexidade do gerenciamento do datacenter.",
+					"Reduzir a complexidade do gerenciamento do datacenter.",
+					"Aumentar o número de fornecedores envolvidos.",
+					"Tornar a implantação mais demorada."
+				],
+				correctAnswer: 1,
+				explanation: "O principal objetivo da Infraestrutura Convergente é simplificar o gerenciamento do data center. Ao integrar componentes e oferecer uma visão unificada, ela busca diminuir a complexidade associada ao gerenciamento de infraestruturas legadas com múltiplas camadas e componentes distintos.",
+				difficulty: "easy"
+			},
+			{
+				question: "Como os componentes de hardware são adquiridos em uma infraestrutura não convergente?",
+				answers: [
+					"São comprados separadamente e integrados pelo cliente ou consultores.",
+					"São comprados em um único pacote integrado de um fornecedor.",
+					"São alugados em um modelo de assinatura mensal.",
+					"São fornecidos gratuitamente pelo fabricante do hipervisor."
+				],
+				correctAnswer: 0,
+				explanation: "Na infraestrutura não convergente (legado), a característica principal é a aquisição individual de cada componente de hardware, como servidores, armazenamento e equipamentos de rede. A responsabilidade pela integração e compatibilidade desses componentes recai sobre o cliente ou consultores contratados.",
+				difficulty: "medium"
+			},
+			{
+				question: "Quem geralmente realiza a integração dos componentes em uma infraestrutura não convergente?",
+				answers: [
+					"O fornecedor do hardware.",
+					"O fabricante do software de virtualização.",
+					"O cliente ou consultores contratados pelo cliente.",
+					"A rede de internet."
+				],
+				correctAnswer: 2,
+				explanation: "Em uma infraestrutura não convergente, como os componentes de hardware são adquiridos separadamente, a tarefa de integrá-los para que funcionem em conjunto geralmente é realizada pela equipe de TI do próprio cliente ou por consultores externos especializados contratados para esse fim.",
+				difficulty: "medium"
+			},
+			{
+				question: "Quais componentes são tipicamente encontrados em uma infraestrutura não convergente, de acordo com o texto?",
+				answers: [
+					"Apenas servidores e armazenamento.",
+					"Hipervisor, servidores, rede e array de armazenamento centralizado (SAN ou NAS).",
+					"Apenas switches de rede e roteadores.",
+					"Software de orquestração e ferramentas de monitoramento."
+				],
+				correctAnswer: 1,
+				explanation: "A infraestrutura não convergente composta por servidores onde roda um hipervisor para virtualização, conectados através da rede a um array de armazenamento centralizado, que pode ser SAN (Storage Area Network) ou NAS (Network Attached Storage).",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual é a principal diferença entre a infraestrutura não convergente e a infraestrutura convergente (CI) mencionada no texto?",
+				answers: [
+					"A infraestrutura não convergente utiliza hardware mais antigo.",
+					"A infraestrutura convergente é pré-integrada por um fornecedor ou baseada em arquitetura de referência.",
+					"A infraestrutura não convergente não suporta virtualização.",
+					"A infraestrutura convergente é sempre mais cara."
+				],
+				correctAnswer: 1,
+				explanation: "O texto destaca que, embora a arquitetura fundamental seja semelhante, a principal diferença reside no fato de que a Infraestrutura Convergente (CI) é pré-integrada por um fornecedor ou se baseia em uma arquitetura de referência desenvolvida em conjunto pelos vários fornecedores que compõem a solução. Já a infraestrutura não convergente envolve a compra separada e a integração pelo cliente.",
+				difficulty: "medium"
+			},
+			{
+				question: "Comparada à infraestrutura convergente, a infraestrutura não convergente geralmente exige mais...",
+				answers: [
+					"Espaço físico no data center.",
+					"Envolvimento do cliente no processo de integração.",
+					"Recursos de processamento dos servidores.",
+					"Largura de banda da rede"
+				],
+				correctAnswer: 1,
+				explanation: "Como a infraestrutura não convergente envolve a compra separada de componentes e a integração pelo próprio cliente ou consultores, ela demanda um maior envolvimento e esforço da equipe de TI do cliente no planejamento, configuração e resolução de problemas de compatibilidade, em comparação com a abordagem pré-integrada da infraestrutura convergente.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual a principal característica da Infraestrutura Hiperconvergente (HCI)?",
+				answers: [
+					"Utiliza apenas hardware de armazenamento especializado.",
+					"Depende de redes de armazenamento SAN e NAS separadas.",
+					"Combina servidores e armazenamento em uma plataforma de infraestrutura distribuída com software inteligente.",
+					"Simplifica apenas a camada de virtualização."
+				],
+				correctAnswer: 2,
+				explanation: "A principal característica da Infraestrutura Hiperconvergente (HCI) é a sua arquitetura que integra estreitamente recursos de computação (servidores) e armazenamento dentro de uma única plataforma distribuída, gerenciada por uma camada de software inteligente. Essa integração elimina a necessidade de infraestruturas de armazenamento separadas, como SAN e NAS.",
+				difficulty: "hard"
+			},
+			{
+				question: "O que o HCI visa substituir principalmente?",
+				answers: [
+					"A infraestrutura legada composta por servidores separados, redes de armazenamento e matrizes de armazenamento.",
+					"Apenas os servidores de aplicativos.",
+					"A conexão de internet do data center.",
+					"O sistema operacional dos servidores."
+				],
+				correctAnswer: 0,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) foi desenvolvida como uma alternativa à infraestrutura de data center tradicional ou legada, que é caracterizada por componentes de hardware distintos e separados para servidores, redes de armazenamento (SAN) e matrizes de armazenamento. O HCI busca consolidar esses elementos em uma única plataforma integrada.",
+				difficulty: "hard"
+			},
+			{
+				question: "Que tipo de hardware de servidor é comumente utilizado no HCI?",
+				answers: [
+					"Servidores mainframe de alta performance.",
+					"Servidores blade com armazenamento compartilhado.",
+					"Thin clients conectados a um servidor central.",
+					"Hardware de servidor de datacenter de commodities."
+				],
+				correctAnswer: 3,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) geralmente utiliza hardware de servidor de datacenter de commodities, ou seja, servidores padrão da indústria. Essa escolha contribui para a redução de custos e aumenta a flexibilidade na escalabilidade, permitindo que as organizações adicionem nós conforme a necessidade.",
+				difficulty: "hard"
+			},
+			{
+				question: "Onde os dispositivos de armazenamento estão localmente conectados nos nós do HCI?",
+				answers: [
+					"A um switch de rede centralizado.",
+					"A uma matriz de armazenamento externa.",
+					"Diretamente ao servidor de cada nó.",
+					"A um sistema de backup dedicado."
+				],
+				correctAnswer: 2,
+				explanation: "Em uma arquitetura de Infraestrutura Hiperconvergente (HCI), cada nó (servidor) possui dispositivos de armazenamento (como SSDs e HDDs) conectados diretamente a ele. Essa conexão local é fundamental para o desempenho e para a distribuição do armazenamento pelo cluster, eliminando a dependência de uma matriz de armazenamento externa.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual componente fundamental do HCI elimina pontos problemáticos comuns da infraestrutura legada?",
+				answers: [
+					"O hardware de commodity.",
+					"Os dispositivos de armazenamento locais.",
+					"Uma camada de software distribuída.",
+					"A ausência de redes de armazenamento separadas."
+				],
+				correctAnswer: 2,
+				explanation: "A camada de software distribuída é o componente chave do HCI que orquestra e gerencia os recursos de computação e armazenamento localmente conectados em cada nó. Essa camada de software é responsável por funcionalidades como virtualização, armazenamento definido por software e rede definida por software, eliminando a complexidade e os silos de gerenciamento da infraestrutura legada.",
+				difficulty: "hard"
+			},
+			{
+				question: "Quais camadas do data center o HCI converge?",
+				answers: [
+					"Apenas computação e armazenamento.",
+					"Computação, armazenamento, rede de armazenamento e virtualização.",
+					"Apenas rede e segurança.",
+					"Aplicações e sistema operacional."
+				],
+				correctAnswer: 1,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) é projetada para convergir toda a pilha do data center, integrando em uma única plataforma o poder computacional dos servidores, o armazenamento de dados (localmente conectado), a rede de armazenamento (tradicionalmente SAN) e a camada de virtualização que abstrai os recursos de hardware.",
+				difficulty: "hard"
+			},
+			{
+				question: "Como as empresas podem dimensionar suas cargas de trabalho utilizando o HCI?",
+				answers: [
+					"Substituindo servidores inteiros por modelos maiores.",
+					"Adicionando recursos individualmente aos servidores existentes.",
+					"Adicionando blocos de construção flexíveis (nós) conforme necessário.",
+					"Migrando para um data center maior."
+				],
+				correctAnswer: 2,
+				explanation: "A escalabilidade no HCI é alcançada através da adição de nós (servidores) padronizados. Cada nó contribui com recursos de computação, armazenamento e, em alguns casos, rede. Essa arquitetura modular permite que as empresas dimensionem seus ambientes de forma flexível e granular, acompanhando o crescimento das cargas de trabalho.",
+				difficulty: "hard"
+			},
+			{
+				question: "O que cada nó em um cluster HCI tipicamente inclui?",
+				answers: [
+					"Processadores com SSDs e HDDs.",
+					"Apenas processadores e memória RAM.",
+					"Apenas dispositivos de armazenamento flash.",
+					"Uma conexão direta à matriz de armazenamento central."
+				],
+				correctAnswer: 0,
+				explanation: "Cada nó em um cluster de Infraestrutura Hiperconvergente (HCI) geralmente é um servidor que contém processadores (CPU), memória RAM para computação, e também dispositivos de armazenamento local, que podem ser tanto SSDs (Solid State Drives) para alto desempenho quanto HDDs (Hard Disk Drives) para maior capacidade, ou uma combinação de ambos.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual o benefício de o software no HCI distribuir as funções operacionais pelo cluster?",
+				answers: [
+					"Redução do consumo de energia.",
+					"Melhor desempenho e maior resiliência.",
+					"Simplificação do licenciamento de software.",
+					"Aumento da capacidade de armazenamento local."
+				],
+				correctAnswer: 1,
+				explanation: "A distribuição das funções operacionais pelo cluster HCI, gerenciada pela camada de software, garante que as cargas de trabalho e os dados sejam distribuídos entre os nós. Isso resulta em um melhor desempenho, pois os recursos são utilizados de forma mais eficiente, e também em maior resiliência, pois se um nó falhar, as funções podem ser assumidas por outros nós do cluster, garantindo a continuidade das operações.",
+				difficulty: "hard"
+			},
+			{
+				question: "O que o painel de gerenciamento incluído nas soluções HCI permite aos usuários fazer?",
+				answers: [
+					"Monitorar apenas o desempenho do hardware.",
+					"Gerenciar apenas a camada de virtualização.",
+					"Configurar a rede física do data center.",
+					"Administrar facilmente os recursos HCI a partir de uma única interface."
+				],
+				correctAnswer: 3,
+				explanation: "Um dos grandes benefícios das soluções de Infraestrutura Hiperconvergente (HCI) é o painel de gerenciamento unificado. Essa interface centralizada permite que os usuários administrem todos os aspectos da infraestrutura HCI, incluindo computação, armazenamento, rede de armazenamento e virtualização, simplificando significativamente as operações e eliminando a necessidade de ferramentas de gerenciamento separadas para cada componente.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual nome abreviado para infraestrutura não convergente?",
+				answers: [
+					"Vergente",
+					"Padrão",
+					"Default",
+					"Legado"
+				],
+				correctAnswer: 3,
+				explanation: "O texto fornecido anteriormente utiliza o termo 'Legado' como uma forma abreviada e comum para se referir à infraestrutura não convergente.",
+				difficulty: "easy"
+			},
+			{
+				question: "Qual a sigla para Infraestrutura convergente?",
+				answers: [
+					"CI",
+					"IC",
+					"HCI",
+					"TC"
+				],
+				correctAnswer: 0,
+				explanation: "A sigla comumente utilizada para Infraestrutura Convergente é CI.",
+				difficulty: "easy"
+			},
+			{
+				question: "Qual a sigla para Infraestrutura hiperconvergente?",
+				answers: [
+					"CI",
+					"HCI",
+					"IHC",
+					"HYC"
+				],
+				correctAnswer: 1,
+				explanation: "A sigla amplamente utilizada para Infraestrutura Hiperconvergente é HCI.",
+				difficulty: "easy"
+			},
+			{
+				question: "O que significa a sigla CI?",
+				answers: [
+					"Converged Infrastructure",
+					"Capacity Infrastructure",
+					"Cloud Infrastructure",
+					"Computing Infrastructure"
+				],
+				correctAnswer: 0,
+				explanation: "A sigla CI significa Converged Infrastructure, que em português se traduz para Infraestrutura Convergente.",
+				difficulty: "easy"
+			},
+			{
+				question: "O que significa a sigla HCI?",
+				answers: [
+					"Hyper Converged Infrastructure",
+					"High Capacity Infrastructure",
+					"Hybrid Cloud Infrastructure",
+					"High-Performance Computing Infrastructure"
+				],
+				correctAnswer: 0,
+				explanation: "A sigla HCI significa Hyper Converged Infrastructure, que em português se traduz para Infraestrutura Hiperconvergente.",
+				difficulty: "easy"
+			},
+			{
+				question: "Qual é um exemplo de um fornecedor de soluções hiperconvergentes?",
+				answers: [
+					"Cisco",
+					"Dell EMC",
+					"IBM",
+					"Todos os acima"
+				],
+				correctAnswer: 3,
+				explanation: "Cisco, Dell EMC e IBM são exemplos de fornecedores que oferecem soluções de infraestrutura hiperconvergente (HCI) em seus portfólios.",
+				difficulty: "easy"
+			},
+			{
+				question: "Qual tecnologia de armazenamento dominou o design da infraestrutura de data center desde os anos 90, conforme o texto?",
+				answers: [
+					"Armazenamento conectado diretamente (DAS).",
+					"Rede de área de armazenamento (SAN).",
+					"Armazenamento conectado à rede (NAS).",
+					"Armazenamento em fita (Tape Storage)."
+				],
+				correctAnswer: 1,
+				explanation: "Conforme o texto fornecido anteriormente sobre o nascimento da hiperconvergência, a Rede de Área de Armazenamento (SAN) dominou o design da infraestrutura de data center desde os anos 90 para proteger dados e alimentar bancos de dados críticos.",
+				difficulty: "medium"
+			},
+			{
+				question: "Por que a infraestrutura tradicional baseada em SAN começou a não atender às necessidades de TI das organizações?",
+				answers: [
+					"Tornou-se mais barata e fácil de gerenciar.",
+					"Não conseguia acompanhar o aumento da dependência da tecnologia, sendo complexa e com escalabilidade limitada.",
+					"Deixou de ser compatível com as novas tecnologias de virtualização.",
+					"Consumia muito pouca energia."
+				],
+				correctAnswer: 1,
+				explanation: "De acordo com o texto sobre o nascimento da hiperconvergência, a infraestrutura tradicional baseada em SAN não conseguia mais acompanhar as necessidades de TI devido à crescente dependência da tecnologia, além de ser complexa, difícil de manejar e com escalabilidade inflexível e ineficiente.",
+				difficulty: "medium"
+			},
+			{
+				question: "Quem enfrentou as limitações da infraestrutura tradicional muito antes do mercado em geral e desenvolveu tecnologias de sistemas distribuídos?",
+				answers: [
+					"Fabricantes de hardware de armazenamento tradicionais.",
+					"Empresas de consultoria de TI.",
+					"As maiores empresas de web do mundo.",
+					"Pequenas e médias empresas (PMEs)."
+				],
+				correctAnswer: 2,
+				explanation: "O texto sobre o nascimento da hiperconvergência menciona que as maiores empresas de web do mundo foram as primeiras a enfrentar as limitações da infraestrutura tradicional e, para superar esses desafios de escalabilidade, confiabilidade e eficiência operacional, desenvolveram tecnologias de sistemas distribuídos.",
+				difficulty: "medium"
+			},
+			{
+				question: "Em que ano, aproximadamente, engenheiros perceberam que as tecnologias de sistemas distribuídos poderiam ser aplicadas ao mercado empresarial?",
+				answers: [
+					"No início dos anos 90.",
+					"No início dos anos 2000.",
+					"Em 2009.",
+					"Em 2015."
+				],
+				correctAnswer: 2,
+				explanation: "O texto sobre o nascimento da hiperconvergência indica que foi em 2009 que engenheiros de várias empresas de escala web perceberam a aplicabilidade de suas tecnologias de sistemas distribuídos para resolver os desafios operacionais do mercado empresarial em geral.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual empresa é mencionada como a primeira a trazer ao mercado um produto específico para HCI e em que ano isso ocorreu?",
+				answers: [
+					"VMware em 2005.",
+					"Microsoft em 2010.",
+					"Nutanix em 2011.",
+					"Cisco em 2013."
+				],
+				correctAnswer: 2,
+				explanation: "De acordo com o texto sobre o nascimento da hiperconvergência, a Nutanix foi a primeira empresa de tecnologia a lançar um produto especificamente para HCI, chamado Complete Cluster, no ano de 2011.",
+				difficulty: "medium"
+			},
+			{
+				question: "Quais são exemplos de provedores de serviços de nuvem pública mencionados no texto?",
+				answers: [
+					"Nutanix, VMware e Cisco.",
+					"Dell EMC, HPE e Lenovo.",
+					"Oracle, SAP e IBM.",
+					"Amazon Web Services (AWS), Microsoft Azure e Google Cloud."
+				],
+				correctAnswer: 3,
+				explanation: "O texto sobre HCI vs. nuvem pública cita explicitamente Amazon Web Services (AWS), Microsoft Azure e Google Cloud como exemplos de serviços de nuvem pública utilizados por organizações para implantar aplicativos de TI.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual desafio é mencionado em relação à construção e implementação de aplicativos em nuvens públicas?",
+				answers: [
+					"É mais barato que a infraestrutura local.",
+					"Simplifica o controle e a segurança dos dados.",
+					"Reduz a necessidade de especialização dentro das equipes de TI.",
+					"Requer conjuntos de habilidades especializadas que podem divergir das equipes de TI tradicionais."
+				],
+				correctAnswer: 3,
+				explanation: "De acordo com o texto sobre HCI vs. nuvem pública, construir e implementar aplicativos em nuvens públicas exige conjuntos de habilidades especializadas que podem ser diferentes daquelas possuídas pelas equipes de TI tradicionais, o que pode aumentar a necessidade de especialização nas organizações.",
+				difficulty: "medium"
+			},
+			{
+				question: "De acordo com o texto, qual tecnologia a HCI aproveita, similar às usadas em nuvens públicas, para construir nuvens privadas?",
+				answers: [
+					"Redes de área de armazenamento (SAN).",
+					"Infraestrutura não convergente.",
+					"Tecnologias de sistemas distribuídos.",
+					"Virtualização tradicional."
+				],
+				correctAnswer: 2,
+				explanation: "O texto sobre HCI vs. nuvem pública afirma que a HCI aproveita tecnologias de sistemas distribuídos, que são semelhantes às utilizadas em nuvens públicas, para permitir que as organizações de TI construam suas próprias nuvens privadas dentro de seus data centers.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual benefício a adoção de HCI traz para as organizações em seus próprios datacenters?",
+				answers: [
+					"Aumenta a complexidade do gerenciamento da infraestrutura.",
+					"Elimina a necessidade de conexão com a nuvem pública.",
+					"Permite criar uma infraestrutura ágil e escalável, similar à nuvem.",
+					"Torna a migração de dados e serviços mais difícil."
+				],
+				correctAnswer: 2,
+				explanation: "O texto sobre HCI vs. nuvem pública explica que ao adotar a HCI, as organizações podem trazer os benefícios da computação em nuvem diretamente para seus data centers, resultando em uma infraestrutura mais ágil e com a capacidade de escalar de forma flexível conforme as necessidades.",
+				difficulty: "hard"
+			},
+			{
+				question: "O que a HCI permite em relação à implantação e gerenciamento de aplicativos em diferentes ambientes de nuvem?",
+				answers: [
+					"Implantação e gerenciamento inconsistentes com ferramentas diferentes.",
+					"Implantação apenas em nuvens privadas.",
+					"Implantação e gerenciamento consistentes utilizando as mesmas ferramentas e procedimentos em nuvens privadas e públicas.",
+					"Requer ferramentas de gerenciamento separadas para cada ambiente."
+				],
+				correctAnswer: 2,
+				explanation: "O texto sobre HCI vs. nuvem pública destaca que a HCI permite que os aplicativos sejam implantados e gerenciados de forma consistente tanto em nuvens privadas (construídas com HCI) quanto em nuvens públicas, utilizando as mesmas ferramentas e procedimentos, como se fossem um único ambiente unificado.",
+				difficulty: "hard"
+			},
+			{
+				question: "Em qual tipo de infraestrutura os componentes como servidores, armazenamento e redes são tipicamente comprados e gerenciados separadamente?",
+				answers: [
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Não Convergente",
+					"Todas as anteriores"
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Não Convergente (também conhecida como infraestrutura legada) é caracterizada pela compra e gerenciamento independentes de seus componentes principais: servidores, armazenamento e redes.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual das seguintes opções descreve melhor o gerenciamento na Infraestrutura Convergente?",
+				answers: [
+					"Altamente complexo, exigindo conhecimento especializado em cada componente.",
+					"Altamente simplificado através de uma interface única, focada no software.",
+					"Simplificado através de uma interface única.",
+					"Gerenciado individualmente por diferentes ferramentas para cada componente."
+				],
+				correctAnswer: 2,
+				explanation: "O gerenciamento na Infraestrutura Convergente é simplificado através de uma interface única, que permite administrar os diversos componentes integrados do sistema de forma mais centralizada e eficiente.",
+				difficulty: "medium"
+			},
+			{
+				question: "A escalabilidade na Infraestrutura Hiperconvergente é caracterizada por qual método?",
+				answers: [
+					"Adição e reconfiguração complexa de hardware específico.",
+					"Adição de módulos pré-integrados de um único fornecedor.",
+					"Escalabilidade limitada pela capacidade do hardware inicial.",
+					"Adição de nós de hardware padrão, oferecendo alta flexibilidade."
+				],
+				correctAnswer: 3,
+				explanation: "A escalabilidade na Infraestrutura Hiperconvergente (HCI) é altamente flexível e realizada através da adição de nós de hardware padrão (commodity hardware). Cada nó adiciona recursos de computação, armazenamento e rede ao cluster, permitindo um crescimento linear e sob demanda.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual tipo de infraestrutura geralmente apresenta os custos mais elevados de aquisição e manutenção de hardware separado?",
+				answers: [
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Não Convergente",
+					"Todas apresentam custos equivalentes."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Não Convergente (legado) geralmente acarreta custos mais elevados devido à necessidade de adquirir e manter componentes de hardware separados (servidores, armazenamento, redes) de diferentes fornecedores, o que pode aumentar a complexidade e os gastos.",
+				difficulty: "medium"
+			},
+			{
+				question: "A virtualização é um componente opcional e gerenciado separadamente em qual tipo de infraestrutura?",
+				answers: [
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Não Convergente",
+					"Em todas as infraestruturas modernas."
+				],
+				correctAnswer: 2,
+				explanation: "Na Infraestrutura Não Convergente (legado), a virtualização é geralmente implementada como uma camada separada, gerenciada independentemente da infraestrutura de hardware subjacente de servidores, armazenamento e rede.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual infraestrutura é conhecida por utilizar hardware pré-configurado de um único fornecedor?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Todas utilizam hardware de um único fornecedor."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Convergente (CI) é caracterizada por ser projetada e integrada por um único fornecedor, oferecendo sistemas pré-configurados com hardware e software combinados para simplificar a implantação e o gerenciamento.",
+				difficulty: "medium"
+			},
+			{
+				question: "Data centers modernos, nuvem privada e VDI são casos de uso típicos para qual tipo de infraestrutura?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Todas são igualmente adequadas para esses casos de uso."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) é altamente adequada para data centers modernos devido à sua escalabilidade e simplicidade, para a construção de nuvens privadas oferecendo agilidade e flexibilidade, e para ambientes de Virtual Desktop Infrastructure (VDI) devido ao seu desempenho consistente e facilidade de expansão.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual abordagem descreve melhor a Infraestrutura Hiperconvergente?",
+				answers: [
+					"Componentes independentes com gerenciamento individualizado.",
+					"Combinação de componentes focada principalmente no hardware.",
+					"Uma evolução direta da infraestrutura legada com melhorias incrementais.",
+					"Plataforma distribuída definida por software com blocos de construção flexíveis."
+				],
+				correctAnswer: 3,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) é melhor descrita como uma plataforma distribuída definida por software, onde os recursos de computação, armazenamento e rede são integrados em nós de hardware padrão, gerenciados por uma camada de software inteligente, oferecendo blocos de construção flexíveis para escalabilidade.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual tipo de infraestrutura geralmente apresenta a maior complexidade de gerenciamento?",
+				answers: [
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Não Convergente",
+					"Todas apresentam o mesmo nível de complexidade."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Não Convergente (legado) geralmente apresenta a maior complexidade de gerenciamento, pois envolve a administração individual de componentes distintos (servidores, armazenamento, redes) de diferentes fornecedores, com ferramentas e conhecimentos especializados para cada um.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual infraestrutura oferece a maior flexibilidade e agilidade para se adaptar às necessidades de TI em constante mudança?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"A flexibilidade e agilidade são as mesmas em todas."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) oferece a maior flexibilidade e agilidade devido à sua arquitetura baseada em software e à capacidade de adicionar nós de hardware padrão de forma modular e simples, permitindo uma adaptação rápida às mudanças nas necessidades de TI.",
+				difficulty: "hard"
+			},
+			{
+				question: "Em qual infraestrutura a adição de capacidade de armazenamento pode exigir a compra e configuração de uma nova matriz separada?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Em todas, a adição de armazenamento é sempre separada."
+				],
+				correctAnswer: 0,
+				explanation: "Na Infraestrutura Não Convergente (legado), a adição de capacidade de armazenamento frequentemente requer a compra e a configuração de uma nova matriz de armazenamento separada, o que pode ser um processo complexo e demorado.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual infraestrutura oferece a maior flexibilidade e agilidade para se adaptar às necessidades de TI em constante mudança?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"A flexibilidade e agilidade são as mesmas em todas."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) oferece a maior flexibilidade e agilidade devido à sua arquitetura baseada em software e à capacidade de adicionar nós de hardware padrão de forma modular e simples, permitindo uma adaptação rápida às mudanças nas necessidades de TI.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual infraestrutura integra a camada de virtualização como parte fundamental de sua arquitetura?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"A virtualização é sempre opcional."
+				],
+				correctAnswer: 1,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) integra a camada de virtualização diretamente em sua arquitetura, sendo um componente essencial para a abstração e o gerenciamento dos recursos de computação e armazenamento.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual tipo de hardware é a base para a escalabilidade da Infraestrutura Hiperconvergente?",
+				answers: [
+					"Hardware proprietário e especializado.",
+					"Módulos pré-integrados de um único fornecedor.",
+					"Hardware padrão (commodity hardware).",
+					"Uma combinação complexa de diferentes tipos de hardware."
+				],
+				correctAnswer: 2,
+				explanation: "A escalabilidade da Infraestrutura Hiperconvergente (HCI) é baseada na adição de nós de hardware padrão (commodity hardware), o que oferece flexibilidade e economia.",
+				difficulty: "hard"
+			},
+			{
+				question: "A consolidação de hardware leva a custos potencialmente mais baixos a longo prazo em qual tipo de infraestrutura?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"A consolidação de hardware não afeta os custos a longo prazo."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) consolida servidores e armazenamento, o que pode levar a custos potencialmente mais baixos a longo prazo em termos de aquisição, energia e gerenciamento.",
+				difficulty: "hard"
+			},
+			{
+				question: "Qual infraestrutura é mais adequada para aplicações legadas e ambientes com necessidades altamente específicas?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Todas são igualmente adequadas para aplicações legadas."
+				],
+				correctAnswer: 0,
+				explanation: "A Infraestrutura Não Convergente (legado) é geralmente mais adequada para aplicações legadas e ambientes com necessidades altamente específicas, pois permite a escolha e configuração de componentes individuais para atender a requisitos particulares.",
+				difficulty: "medium"
+			},
+			{
+				question: "A adição de módulos pré-integrados para escalabilidade é uma característica de qual infraestrutura?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"A escalabilidade modular não existe em nenhuma dessas."
+				],
+				correctAnswer: 1,
+				explanation: "A adição de módulos pré-integrados para escalabilidade é uma característica da Infraestrutura Convergente (CI), onde os fornecedores oferecem blocos de construção integrados para expandir a capacidade.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual infraestrutura enfatiza uma plataforma distribuída definida por software?",
+				answers: [
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Todas são definidas por software."
+				],
+				correctAnswer: 0,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) enfatiza uma plataforma distribuída definida por software, onde o software gerencia os recursos de computação e armazenamento distribuídos nos nós.",
+				difficulty: "hard"
+			},
+			{
+				question: "A necessidade de conhecimento especializado em diferentes componentes é mais pronunciada em qual tipo de infraestrutura?",
+				answers: [
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Não Convergente",
+					"O nível de conhecimento especializado é o mesmo em todas."
+				],
+				correctAnswer: 2,
+				explanation: "A necessidade de conhecimento especializado em diferentes componentes (servidores, armazenamento, redes) é mais pronunciada na Infraestrutura Não Convergente (legado), pois cada componente é adquirido e gerenciado separadamente, muitas vezes de diferentes fornecedores.",
+				difficulty: "medium"
+			},
+			{
+				question: "A escalabilidade limitada e trabalhosa é uma desvantagem de qual infraestrutura?",
+				answers: [
+					"Infraestrutura Hiperconvergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Não Convergente",
+					"Nenhuma dessas infraestruturas tem escalabilidade limitada."
+				],
+				correctAnswer: 2,
+				explanation: "A escalabilidade limitada e trabalhosa é frequentemente uma desvantagem da Infraestrutura Não Convergente (legado), onde a expansão da capacidade pode exigir a compra e a configuração complexa de hardware individual.",
+				difficulty: "medium"
+			},
+			{
+				question: "Qual infraestrutura busca trazer os benefícios da computação em nuvem para o data center local?",
+				answers: [
+					"Infraestrutura Não Convergente",
+					"Infraestrutura Convergente",
+					"Infraestrutura Hiperconvergente",
+					"A computação em nuvem é independente da infraestrutura local."
+				],
+				correctAnswer: 2,
+				explanation: "A Infraestrutura Hiperconvergente (HCI) busca trazer os benefícios da computação em nuvem para o data center local, oferecendo agilidade, escalabilidade e gerenciamento simplificado através de uma arquitetura definida por software.",
+				difficulty: "hard"
+			}
+		];
+
+		// Salva o banco de perguntas inicial se não existir
+		if (!localStorage.getItem('questionBank')) {
+			localStorage.setItem('questionBank', JSON.stringify(questionBank));
+		}
+
+		// Função para mostrar erro de nome duplicado
+		function showNameError(message = "Este nome já está em uso! Escolha outro nome ou adicione números/iniciais.") {
+			// Remove mensagens de erro anteriores
+			const existingError = document.querySelector('.name-error');
+			if (existingError) {
+				existingError.remove();
+			}
+			
+			// Cria mensagem de erro
+			const errorElement = document.createElement('div');
+			errorElement.className = 'name-error';
+			errorElement.innerHTML = `<p>${message}</p>`;
+			
+			// Insere após o campo de nome
+			const nameInput = document.getElementById('username');
+			nameInput.insertAdjacentElement('afterend', errorElement);
+			nameInput.classList.add('input-error');
+			nameInput.focus();
+		}
+
+		// Função para selecionar perguntas aleatórias do nível escolhido
+		function getQuestionsByLevel(level, count) {
+			// Filtra perguntas pelo nível de dificuldade
+			const levelQuestions = questionBank.filter(q => q.difficulty === level);
+			
+			// Se não há perguntas suficientes, usa todas disponíveis
+			if (levelQuestions.length <= count) {
+				return [...levelQuestions];
+			}
+			
+			// Seleciona aleatoriamente
+			const shuffled = [...levelQuestions].sort(() => 0.5 - Math.random());
+			return shuffled.slice(0, count);
+		}
+
+		// Função para selecionar perguntas aleatórias que não foram usadas antes
+		function getNewRandomQuestions(questions, count) {
+			// Se não há perguntas suficientes, reseta as usadas
+			if (questions.length <= count || usedQuestionIndices.length >= questions.length) {
+				usedQuestionIndices = [];
+			}
+			
+			// Filtra perguntas que ainda não foram usadas
+			const availableQuestions = questions.filter((_, index) => !usedQuestionIndices.includes(index));
+			
+			// Seleciona aleatoriamente do pool disponível
+			const shuffled = [...availableQuestions].sort(() => 0.5 - Math.random());
+			const selectedQuestions = shuffled.slice(0, count);
+			
+			// Registra os índices das perguntas selecionadas como usadas
+			selectedQuestions.forEach(question => {
+				const index = questions.findIndex(q => q.question === question.question);
+				if (index !== -1) {
+					usedQuestionIndices.push(index);
+				}
+			});
+			
+			return selectedQuestions;
+		}
+
+		// Função para selecionar perguntas aleatórias sem repetição (para novo quiz)
+		function getRandomQuestions(questions, count) {
+			// Verifica se há perguntas suficientes
+			if (questions.length <= count) {
+				return [...questions]; // Retorna todas as perguntas se não houver suficientes
+			}
+			
+			const shuffled = [...questions].sort(() => 0.5 - Math.random());
+			return shuffled.slice(0, count);
+		}
+
+		// Função para iniciar o quiz
+		function startQuiz() {
+			// Limpa erros se existirem
+			const existingError = document.querySelector('.name-error');
+			if (existingError) {
+				existingError.remove();
+			}
+			
+			const nameInput = document.getElementById('username');
+			nameInput.classList.remove('input-error');
+			
+			// Seleciona perguntas do nível escolhido
+			currentQuestions = getQuestionsByLevel(currentLevel, questionCount);
+			
+			// Se não houver perguntas suficientes para o nível, pega do banco completo
+			if (currentQuestions.length < questionCount) {
+				const remaining = questionCount - currentQuestions.length;
+				const otherQuestions = questionBank.filter(q => q.difficulty !== currentLevel);
+				const additionalQuestions = getRandomQuestions(otherQuestions, remaining);
+				currentQuestions = [...currentQuestions, ...additionalQuestions];
+			}
+			
+			loginSection.classList.add('hidden');
+			quizSection.classList.remove('hidden');
+			showQuestion();
+		}
+
+		// Evento de login com verificação de nome duplicado
+		loginForm.addEventListener('submit', function(e) {
+			e.preventDefault();
+			userName = document.getElementById('username').value.trim();
+			
+			if (userName) {
+				// Verificação robusta de nome existente (ignorando maiúsculas/minúsculas)
+				const nameExists = ranking.some(player => 
+					player.name.toLowerCase() === userName.toLowerCase()
+				);
+				
+				if (nameExists) {
+					showNameError();
+				} else {
+					startQuiz();
+				}
+			} else {
+				showNameError("Por favor, digite um nome válido!");
+			}
+		});
+
+		// Evento de login do admin
+		adminLoginForm.addEventListener('submit', function(e) {
+			e.preventDefault();
+			const password = document.getElementById('admin-password').value;
+			
+			if (password === ADMIN_PASSWORD) {
+				adminLoginSection.classList.add('hidden');
+				adminSection.classList.remove('hidden');
+				loadQuestionList();
+			} else {
+				alert("Senha incorreta! Tente novamente.");
+			}
+		});
+
+		// Botão para acessar o login admin
+		adminLoginBtn.addEventListener('click', function() {
+			loginSection.classList.add('hidden');
+			adminLoginSection.classList.remove('hidden');
+		});
+
+		// Botão para voltar do admin login para o login normal
+		backToLoginBtn.addEventListener('click', function(e) {
+			e.preventDefault();
+			adminLoginSection.classList.add('hidden');
+			loginSection.classList.remove('hidden');
+		});
+
+		// Botão para voltar do painel admin para o login admin
+		backToAdminLoginBtn.addEventListener('click', function() {
+			adminSection.classList.add('hidden');
+			adminLoginSection.classList.remove('hidden');
+		});
+
+		// Botões de nível de dificuldade
+		easyBtn.addEventListener('click', function() {
+			currentLevel = 'easy';
+			easyBtn.classList.add('selected');
+			mediumBtn.classList.remove('selected');
+			hardBtn.classList.remove('selected');
+		});
+
+		mediumBtn.addEventListener('click', function() {
+			currentLevel = 'medium';
+			easyBtn.classList.remove('selected');
+			mediumBtn.classList.add('selected');
+			hardBtn.classList.remove('selected');
+		});
+
+		hardBtn.addEventListener('click', function() {
+			currentLevel = 'hard';
+			easyBtn.classList.remove('selected');
+			mediumBtn.classList.remove('selected');
+			hardBtn.classList.add('selected');
+		});
+
+		// Botão para ver o ranking
+		rankingBtn.addEventListener('click', function() {
+			displayRanking();
+			loginSection.classList.add('hidden');
+			resultSection.classList.remove('hidden');
+			resultMessage.textContent = "Ranking dos Jogadores";
+			resultDescription.textContent = "Veja como você se compara aos outros participantes!";
+			document.getElementById('score').textContent = "";
+		});
+
+		// Botão para voltar ao início
+		backToStartBtn.addEventListener('click', function() {
+			resultSection.classList.add('hidden');
+			loginSection.classList.remove('hidden');
+			currentQuestion = 0;
+			score = 0;
+			userAnswers = [];
+		});
+
+		// Função para carregar a lista de perguntas
+		function loadQuestionList() {
+			questionList.innerHTML = '';
+			
+			questionBank.forEach((question, index) => {
+				const questionItem = document.createElement('div');
+				questionItem.className = 'question-item';
+				questionItem.textContent = `${index + 1}. ${question.question} (${question.difficulty})`;
+				questionItem.dataset.index = index;
+				
+				questionItem.addEventListener('click', function() {
+					// Remove seleção anterior
+					const selectedItems = document.querySelectorAll('.question-item.selected');
+					selectedItems.forEach(item => item.classList.remove('selected'));
+					
+					// Seleciona o item atual
+					this.classList.add('selected');
+					selectedQuestionIndex = index;
+					
+					// Ativa botões de edição e exclusão
+					editQuestionBtn.disabled = false;
+					deleteQuestionBtn.disabled = false;
+				});
+				
+				questionList.appendChild(questionItem);
+			});
+		}
+
+		// Botão para adicionar nova pergunta
+		addQuestionBtn.addEventListener('click', function() {
+			selectedQuestionIndex = -1;
+			resetQuestionForm();
+			questionForm.classList.remove('hidden');
+		});
+
+		// Botão para editar pergunta
+		editQuestionBtn.addEventListener('click', function() {
+			if (selectedQuestionIndex >= 0) {
+				const question = questionBank[selectedQuestionIndex];
+				document.getElementById('question-text-input').value = question.question;
+				difficultyInput.value = question.difficulty;
+				
+				for (let i = 0; i < 4; i++) {
+					document.getElementById(`answer-${i}`).value = question.answers[i] || '';
+				}
+				
+				document.querySelector(`input[name="correct-answer"][value="${question.correctAnswer}"]`).checked = true;
+				document.getElementById('explanation-input').value = question.explanation;
+				
+				questionForm.classList.remove('hidden');
+			}
+		});
+
+		// Botão para deletar pergunta
+		deleteQuestionBtn.addEventListener('click', function() {
+			if (selectedQuestionIndex >= 0 && confirm('Tem certeza que deseja remover esta pergunta?')) {
+				questionBank.splice(selectedQuestionIndex, 1);
+				saveQuestions();
+				loadQuestionList();
+				selectedQuestionIndex = -1;
+				editQuestionBtn.disabled = true;
+				deleteQuestionBtn.disabled = true;
+			}
+		});
+
+		// Botão para cancelar formulário
+		cancelFormBtn.addEventListener('click', function() {
+			questionForm.classList.add('hidden');
+		});
+
+		// Botão para salvar pergunta
+		saveQuestionBtn.addEventListener('click', function() {
+			const questionText = document.getElementById('question-text-input').value.trim();
+			const difficulty = difficultyInput.value;
+			const answers = [
+				document.getElementById('answer-0').value.trim(),
+				document.getElementById('answer-1').value.trim(),
+				document.getElementById('answer-2').value.trim(),
+				document.getElementById('answer-3').value.trim()
+			];
+			const correctAnswer = parseInt(document.querySelector('input[name="correct-answer"]:checked').value);
+			const explanation = document.getElementById('explanation-input').value.trim();
+			
+			// Validação básica
+			if (!questionText || !difficulty || answers.some(a => !a) || !explanation) {
+				alert('Por favor, preencha todos os campos!');
+				return;
+			}
+			
+			const question = {
+				question: questionText,
+				difficulty: difficulty,
+				answers: answers,
+				correctAnswer: correctAnswer,
+				explanation: explanation
+			};
+			
+			if (selectedQuestionIndex >= 0) {
+				// Editar pergunta existente
+				questionBank[selectedQuestionIndex] = question;
+			} else {
+				// Adicionar nova pergunta
+				questionBank.push(question);
+			}
+			
+			saveQuestions();
+			loadQuestionList();
+			questionForm.classList.add('hidden');
+		});
+
+		// Função para resetar o formulário de pergunta
+		function resetQuestionForm() {
+			document.getElementById('question-text-input').value = '';
+			difficultyInput.value = '';
+			for (let i = 0; i < 4; i++) {
+				document.getElementById(`answer-${i}`).value = '';
+			}
+			document.querySelector('input[name="correct-answer"]').checked = false;
+			document.getElementById('explanation-input').value = '';
+		}
+
+		// Função para salvar perguntas no localStorage
+		function saveQuestions() {
+			localStorage.setItem('questionBank', JSON.stringify(questionBank));
+		}
+		
+		// Mostrar pergunta atual
+		function showQuestion() {
+			const question = currentQuestions[currentQuestion];
+			questionText.textContent = `${currentQuestion + 1}. ${question.question}`;
+			
+			// Atualizar barra de progresso
+			progressBar.style.width = `${((currentQuestion + 1) / currentQuestions.length) * 100}%`;
+			
+			// Limpar respostas anteriores
+			answerOptions.innerHTML = '';
+			explanation.style.display = 'none';
+			
+				// Adicionar opções de resposta
+			question.answers.forEach((answer, index) => {
+				const answerElement = document.createElement('div');
+				answerElement.classList.add('answer-option');
+				
+				// Marcar resposta selecionada se existir
+				if (userAnswers[currentQuestion] !== undefined && userAnswers[currentQuestion] === index) {
+					answerElement.classList.add('selected');
+				}
+				
+				// Marcar respostas corretas/incorretas após responder
+				if (userAnswers[currentQuestion] !== undefined) {
+					if (index === question.correctAnswer) {
+						answerElement.classList.add('correct');
+					} else if (index === userAnswers[currentQuestion] && index !== question.correctAnswer) {
+						answerElement.classList.add('incorrect');
+					}
+				}
+				
+				answerElement.textContent = answer;
+				answerElement.addEventListener('click', function() {
+					if (userAnswers[currentQuestion] === undefined) {
+						selectAnswer(index);
+					}
+				});
+				answerOptions.appendChild(answerElement);
+			});
+			
+			// Mostrar explicação se a pergunta foi respondida
+			if (userAnswers[currentQuestion] !== undefined) {
+				explanation.textContent = question.explanation;
+				explanation.style.display = 'block';
+			}
+			
+			// Atualizar botões de navegação
+			prevBtn.disabled = currentQuestion === 0;
+			
+			if (currentQuestion === currentQuestions.length - 1) {
+				nextBtn.textContent = 'Finalizar';
+			} else {
+				nextBtn.textContent = 'Próxima';
+			}
+			
+			if (userAnswers[currentQuestion] === undefined) {
+				nextBtn.disabled = true;
+			} else {
+				nextBtn.disabled = false;
+			}
+		}
+		
+		// Selecionar resposta
+		function selectAnswer(index) {
+			userAnswers[currentQuestion] = index;
+			
+			// Verificar se a resposta está correta
+			if (index === currentQuestions[currentQuestion].correctAnswer) {
+				score++;
+			}
+			
+			// Atualizar a exibição
+			showQuestion();
+		}
+		
+		// Botão Anterior
+		prevBtn.addEventListener('click', function() {
+			if (currentQuestion > 0) {
+				currentQuestion--;
+				showQuestion();
+			}
+		});
+		
+		// Botão Próxima/Finalizar
+		nextBtn.addEventListener('click', function() {
+			if (currentQuestion < currentQuestions.length - 1) {
+				currentQuestion++;
+				showQuestion();
+			} else {
+				// Mostrar resultados
+				showResults();
+			}
+		});
+		
+		// Mostrar resultados
+		function showResults() {
+			quizSection.classList.add('hidden');
+			resultSection.classList.remove('hidden');
+			
+			scoreElement.textContent = `${score}/${currentQuestions.length}`;
+			
+			const percentage = (score / currentQuestions.length) * 100;
+			
+			if (percentage >= 80) {
+				resultMessage.textContent = `Parabéns, ${userName}!`;
+				resultDescription.textContent = "Você demonstrou um excelente conhecimento sobre hiperconvergência! Continue assim para se tornar um especialista no assunto.";
+			} else if (percentage >= 50) {
+				resultMessage.textContent = `Bom trabalho, ${userName}!`;
+				resultDescription.textContent = "Você tem um bom conhecimento básico sobre hiperconvergência, mas ainda há espaço para aprender mais. Continue estudando!";
+			} else {
+				resultMessage.textContent = `Obrigado por participar, ${userName}!`;
+				resultDescription.textContent = "Hiperconvergência é um assunto complexo e você está começando sua jornada de aprendizado. Revise as explicações e tente novamente!";
+			}
+			
+			// Atualizar ranking
+			updateRanking(userName, score, currentQuestions.length);
+			displayRanking();
+		}
+		
+		// Atualizar ranking
+		function updateRanking(name, score, totalQuestions) {
+			// Adicionar novo resultado
+			ranking.push({
+				name: name,
+				score: score,
+				total: totalQuestions,
+				date: new Date().toISOString(),
+				level: currentLevel
+			});
+			
+			// Ordenar por pontuação (maior primeiro) e depois por data (mais recente primeiro)
+			ranking.sort((a, b) => {
+				const scoreA = (a.score / a.total) * 100;
+				const scoreB = (b.score / b.total) * 100;
+				
+				if (scoreB !== scoreA) {
+					return scoreB - scoreA;
+				} else {
+					return new Date(b.date) - new Date(a.date);
+				}
+			});
+			
+			// Manter apenas os top 6
+			ranking = ranking.slice(0, 6);
+			
+			// Salvar no localStorage
+			localStorage.setItem('quizRanking', JSON.stringify(ranking));
+		}
+		
+		// Mostrar ranking
+		function displayRanking() {
+			// Limpar ranking anterior
+			while (rankingContainer.children.length > 1) {
+				rankingContainer.removeChild(rankingContainer.lastChild);
+			}
+			
+			// Adicionar itens do ranking
+			ranking.forEach((player, index) => {
+				const rankingItem = document.createElement('div');
+				rankingItem.classList.add('ranking-item');
+				
+				const position = document.createElement('div');
+				position.textContent = `#${index + 1}`;
+				
+				const name = document.createElement('div');
+				name.textContent = player.name;
+				
+				const score = document.createElement('div');
+				score.textContent = `${player.score}/${player.total}`;
+				
+				rankingItem.appendChild(position);
+				rankingItem.appendChild(name);
+				rankingItem.appendChild(score);
+				
+				rankingContainer.appendChild(rankingItem);
+			});
+		}
+		
+		// Reiniciar quiz com as mesmas perguntas
+		restartBtn.addEventListener('click', function() {
+			currentQuestion = 0;
+			score = 0;
+			userAnswers = [];
+			
+			resultSection.classList.add('hidden');
+			quizSection.classList.remove('hidden');
+			showQuestion();
+		});
+		
+		// Novo quiz com perguntas diferentes
+		newQuizBtn.addEventListener('click', function() {
+			currentQuestion = 0;
+			score = 0;
+			userAnswers = [];
+			
+			// Seleciona novas perguntas do mesmo nível
+			currentQuestions = getQuestionsByLevel(currentLevel, questionCount);
+			
+			// Se não houver perguntas suficientes para o nível, pega do banco completo
+			if (currentQuestions.length < questionCount) {
+				const remaining = questionCount - currentQuestions.length;
+				const otherQuestions = questionBank.filter(q => q.difficulty !== currentLevel);
+				const additionalQuestions = getRandomQuestions(otherQuestions, remaining);
+				currentQuestions = [...currentQuestions, ...additionalQuestions];
+			}
+			
+			resultSection.classList.add('hidden');
+			quizSection.classList.remove('hidden');
+			showQuestion();
+		});
+		
+		// Exibir ranking inicial se existir
+		if (ranking.length > 0) {
+			displayRanking();
+		}
+	});
+</script>
+<script>
+    async function loadHTML(id, file) {
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Erro ao carregar ${file}`);
+        const html = await res.text();
+        document.getElementById(id).innerHTML = html;
+      } catch (err) {
+        console.error(err);
+        document.getElementById(id).innerHTML = `<p>Erro ao carregar ${file}</p>`;
+      }
+    }
+
+    // Carregar os componentes
+    loadHTML("menu", "menu.html");
+    loadHTML("rodape", "rodape.html");
+</script>
+</body>
+</html>
