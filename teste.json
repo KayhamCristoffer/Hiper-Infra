@@ -1,0 +1,59 @@
+{
+    "quiz": {
+      "questionBank": {
+        "q1": {
+          "id": 1,
+          "question": "O que é Infraestrutura Convergente (CI)?",
+          "answers": {
+            "1": "Um novo tipo de servidor de alta performance.",
+            "2": "Uma forma de gerenciamento de data center que combina componentes legados em um único produto.",
+            "3": "Um software de virtualização avançado.",
+            "4": "Uma técnica para aumentar a velocidade da rede."
+          },
+          "correctAnswer": 2,
+          "explanation": "Infraestrutura Convergente (CI) é definida como uma abordagem de gerenciamento de data center que integra componentes de computação, armazenamento, rede e virtualização em um único sistema pré-configurado.",
+          "difficulty": "medio"
+        },
+        "q2": {
+          "id": 2,
+          "question": "Qual a principal característica da Hiperconvergência (HCI)?",
+          "answers": {
+            "1": "Uso exclusivo de hardware proprietário.",
+            "2": "Integração de computação, armazenamento e rede definidos por software em hardware x86 padrão.",
+            "3": "Separação física de componentes de computação e armazenamento.",
+            "4": "Foco principal em redes de alta velocidade."
+          },
+          "correctAnswer": 2,
+          "explanation": "A HCI combina computação, armazenamento e rede em uma única plataforma, gerenciada por software e executada em hardware commodity (x86), simplificando o gerenciamento e a escalabilidade.",
+          "difficulty": "medio"
+        },
+         "q3": {
+          "id": 3,
+          "question": "Qual destes NÃO é um benefício comum da HCI?",
+          "answers": {
+            "1": "Gerenciamento simplificado.",
+            "2": "Maior custo inicial em comparação com soluções tradicionais.",
+            "3": "Escalabilidade granular.",
+            "4": "Melhor utilização de recursos."
+          },
+          "correctAnswer": 2,
+          "explanation": "Embora o TCO (Custo Total de Propriedade) possa ser menor a longo prazo, o custo inicial de aquisição de uma solução HCI pode ser comparável ou até maior que alguns componentes tradicionais separados, mas geralmente oferece economia em outras áreas (energia, espaço, gerenciamento). O principal ponto é que 'maior custo inicial' não é um benefício.",
+          "difficulty": "facil"
+        }
+      
+      }
+    },
+    "ranking": {
+      "-ExemploID1": {
+        "id": "-ExemploID1",
+        "userName": "Participante Exemplo",
+        "score": 2,
+        "totalQuestions": 3,
+        "currentLevel": "medio",
+        "timestamp": 1678886400000 
+      }
+      
+    }
+  }
+  
+  

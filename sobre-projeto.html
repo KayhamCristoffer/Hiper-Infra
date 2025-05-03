@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!--  *****   Link To Custom CSS Style Sheet   *****  -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--  *****   Link To Font Awsome Icons   *****  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+
+    <!--  *****   Link To Owl Carousel   *****  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiper-Infra | Sobre o Projeto</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        /* Estilos para as seções do projeto */
+        .project-details {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        .project-section {
+            margin-bottom: 60px;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .project-section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 10px;
+        }
+        
+        .project-feature {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+        
+        .project-icon {
+            font-size: 24px;
+            color: #3498db;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .project-feature-content {
+            flex: 1;
+        }
+        
+        /* Estilos para o processo de desenvolvimento */
+        .development-process {
+            margin-bottom: 40px;
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .process-step.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .step-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .step-content ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .step-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .banner {
+                flex-direction: column;
+            }
+            .banner-desc, .banner-img {
+                flex: none;
+                width: 100%;
+            }
+            
+            .process-step, 
+            .process-step.reverse {
+                flex-direction: column;
+            }
+            
+            .step-image {
+                margin-top: 20px;
+            }
+            
+            .project-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Loader Section -->
+    <div class="page-loader">
+        <div class="loader-container">
+            <div class="loader-wrapper">
+                <div class="loader-circle"></div>
+                <img src="images/Inicio/logo.png" alt="Loading" class="loader-img">
+            </div>
+            <div class="loader-text">Carregando...</div>
+        </div>
+    </div>
+    <div id="menu"></div>
+    <!--   *** Website Container Starts ***   -->
+    <div class="website-container">
+        
+        <!--   *** Inicio Section Starts ***   -->
+        <section class="Inicio" id="Inicio">
+
+            
+            <!--   === Banner Starts ===   -->
+            <div class="banner" style="display: flex; align-items: center; gap: 30px;">
+                <div class="banner-desc" style="flex: 1;">
+                    <h2>Sobre o Projeto</h2>
+                    <p>O grupo Hiper Infra, composto por estudantes dos cursos de Análise e Desenvolvimento de Sistemas, Ciência da Computação e Sistemas de Informação da faculdade UniDrummond, apresenta este website dedicado à exploração e divulgação do conceito de hiperconvergência. Este projeto de extensão universitária tem como objetivo principal disseminar conhecimento sobre essa tecnologia de infraestrutura de TI, que vem transformando a maneira como as organizações gerenciam seus data centers. Buscamos oferecer um espaço informativo e acessível, onde estudantes, profissionais e empresas possam aprofundar seus conhecimentos sobre este tema relevante.</p>
+                </div>
+                <div class="banner-img" style="flex: 1;">
+                    <img src="images/Inicio/pj.webp" alt="Equipe trabalhando no projeto" style="max-width: 100%; height: auto; border-radius: 8px;">
+                </div>
+            </div>
+            <!--   === Banner Ends ===   -->
+        </section>
+        <!--   *** Inicio Section Ends ***   -->
+
+        <!--   *** Conteúdo Principal Starts ***   -->
+        <div class="project-details">
+            <section class="project-section">
+                <h2>Objetivos do Projeto</h2>
+                
+                <div class="project-feature">
+                    <div class="project-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="project-feature-content">
+                        <h3>Missão Principal</h3>
+                        <p>Disseminar conhecimento sobre infraestrutura hiperconvergente (HCI) de forma acessível e prática, tornando a tecnologia compreensível para estudantes e profissionais de TI.</p>
+                    </div>
+                </div>
+                
+                <div class="project-feature">
+                    <div class="project-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="project-feature-content">
+                        <h3>Objetivos Educacionais</h3>
+                        <ul>
+                            <li>Fornecer material didático sobre hiperconvergência</li>
+                            <li>Criar um ambiente interativo de aprendizagem</li>
+                            <li>Facilitar o entendimento de conceitos complexos</li>
+                            <li>Promover a aplicação prática do conhecimento</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="project-section">
+                <h2>Metodologia</h2>
+                
+                <div class="project-feature">
+                    <div class="project-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <div class="project-feature-content">
+                        <h3>Pesquisa e Desenvolvimento</h3>
+                        <p>O projeto foi desenvolvido através de extensa pesquisa bibliográfica, análise de casos reais e desenvolvimento de material didático interativo. Utilizamos fontes confiáveis como white papers de fabricantes, artigos científicos e documentação técnica.</p>
+                    </div>
+                </div>
+                
+                <div class="project-feature">
+                    <div class="project-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="project-feature-content">
+                        <h3>Abordagem Colaborativa</h3>
+                        <p>Utilizamos uma metodologia ágil com sprints quinzenais, revisões constantes do material e validação com professores e profissionais da área. Cada membro da equipe contribuiu com suas especialidades, desde desenvolvimento web até pesquisa técnica.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!--   *** Equipe Section Starts ***   -->
+            <section class="Equipe" id="Equipe">
+                <!--   *** Equipe Header Starts ***   -->
+                <header class="section-header">
+                    <div class="header-text">
+                        <h1>Equipe de Desenvolvimento</h1>
+                        <p>A equipe de Desenvolvimento do Hiper Infra é responsável por transformar ideias em soluções digitais. Nosso foco está na criação e manutenção do site, além do desenvolvimento do quiz interativo sobre hiperconvergência, garantindo que a experiência dos usuários seja intuitiva, dinâmica e informativa.</p>
+                    </div>
+                </header>
+                <!--   *** Equipe Header Ends ***   -->
+                
+                <!--   *** Equipe Contents Starts ***   -->
+                <div class="course-contents">
+                    
+                    <div class="course-card">
+                        <img src="images/Equipe/felipao3.jpg" alt="Felipe Geraldino">
+                        <div class="category">
+                            <div class="subject"><h3>Felipe Rodrigues Guimarães Geraldino</h3></div>
+                        </div>
+                        <h2 class="course-title">Estudante de Ciência da Computação</h2>
+                        <div class="course-desc">
+                            <span><i class="fa-solid fa-users"></i> 7º semestre - 22 Anos</span>
+                        </div>
+                        <div class="course-ratings">
+                            <span>Linkedin</span>
+                            <span>
+                                <a href="https://www.linkedin.com/in/felipe-geraldino-855767232/" target="_blank" rel="noopener noreferrer">
+                                    felipe-geraldino
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <img src="images/Equipe/dry2.jpg" alt="Adrielly Rodrigues">
+                        <div class="category">
+                            <div class="subject"><h3>Adrielly Rodrigues dos Santos</h3></div>
+                        </div>
+                        <h2 class="course-title">Estudante de Sistemas de Informação</h2>
+                        <div class="course-desc">
+                            <span><i class="fa-solid fa-users"></i> 7º semestre - 21 Anos</span>
+                        </div>
+                        <div class="course-ratings">
+                            <span>Linkedin</span>
+                            <span>
+                                <a href="https://www.linkedin.com/in/adriellyrodriguess/" target="_blank" rel="noopener noreferrer">
+                                    adriellyrodriguess
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <img src="images/Equipe/kay.jpg" alt="Kayham">
+                        <div class="category">
+                            <div class="subject"><h3>Kayham Cristoffer</h3></div>
+                        </div>
+                        <h2 class="course-title">Estudante de Ciência da Computação</h2>
+                        <div class="course-desc">
+                            <span><i class="fa-solid fa-users"></i> 4º semestre - 26 Anos</span>
+                        </div>
+                        <div class="course-ratings">
+                            <span>Linkedin</span>
+                            <a href="https://www.linkedin.com/in/kayhamcristoffer/" target="_blank" rel="noopener noreferrer">
+                                kayhamcristoffer
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <img src="images/Equipe/juam.jpg" alt="Juan de Souza">
+                        <div class="category">
+                            <div class="subject"><h3>Juan de Souza</h3></div>
+                        </div>
+                        <h2 class="course-title">Estudante de ADS</h2>
+                        <div class="course-desc">
+                            <span><i class="fa-solid fa-users"></i> 7º semestre - 20 Anos</span>
+                        </div>
+                        <div class="course-ratings">
+                            <span>Linkedin</span>
+                            <a href="https://www.linkedin.com/in/juan-de-souza-8a2108273/" target="_blank" rel="noopener noreferrer">
+                                juan-de-souza
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="course-card">
+                        <img src="images/Equipe/kaio.jpg" alt="Kaio Gonçalves">
+                        <div class="category">
+                            <div class="subject"><h3>Kaio Gonçalves</h3></div>
+                        </div>
+                        <h2 class="course-title">Estudante de ADS</h2>
+                        <div class="course-desc">
+                            <span><i class="fa-solid fa-users"></i> 7º semestre - 20 Anos</span>
+                        </div>
+                        <div class="course-ratings">
+                            <span>Linkedin</span>
+                            <a href="https://www.linkedin.com/in/kaio-gon%C3%A7alves-6a0058271/" target="_blank" rel="noopener noreferrer">
+                                kaio-gonçalves
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--   *** Equipe Contents Ends ***   -->
+            </section>
+            
+            <!-- Processo de Desenvolvimento -->
+            <section class="project-section">
+                <h2>Processo de Desenvolvimento</h2>
+                
+                <div class="development-process">
+                    <div class="process-step">
+                        <div class="step-content">
+                            <h3>1. Pesquisa e Planejamento</h3>
+                            <p>Realizamos extensa pesquisa sobre hiperconvergência, analisando documentação técnica, artigos acadêmicos e cases de sucesso. Definimos a arquitetura da informação e os requisitos do projeto.</p>
+                            <ul>
+                                <li>Análise de soluções HCI (Nutanix, VMware, Microsoft)</li>
+                                <li>Definição de personas e jornadas do usuário</li>
+                                <li>Planejamento de sprints com metodologia ágil</li>
+                                <li>Seleção de tecnologias para desenvolvimento</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="images/desenvolvimento/planejamento.jpg" alt="Equipe em reunião de planejamento" style="max-width: 100%; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+                        </div>
+                    </div>
+                    
+                    <div class="process-step reverse">
+                        <div class="step-content">
+                            <h3>2. Desenvolvimento do Site</h3>
+                            <p>Implementamos o website com foco em usabilidade e acessibilidade, utilizando tecnologias modernas como HTML, CSS e JavaScript. O design foi criado para facilitar a compreensão dos conceitos complexos de HCI.</p>
+                            <ul>
+                                <li>Desenvolvimento front-end responsivo</li>
+                                <li>Criação de conteúdo didático</li>
+                                <li>Implementação do quiz interativo</li>
+                                <li>Integração de recursos multimídia</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="images/desenvolvimento/codigo.jpg" alt="Tela com código fonte" style="max-width: 100%; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-content">
+                            <h3>3. Testes e Validação</h3>
+                            <p>Conduzimos testes de usabilidade com alunos e professores, coletando feedback para refinamentos. Validamos o conteúdo técnico com especialistas em infraestrutura de TI.</p>
+                            <ul>
+                                <li>Testes A/B de navegação</li>
+                                <li>Revisão técnica do conteúdo</li>
+                                <li>Otimização para dispositivos móveis</li>
+                                <li>Análise de métricas de engajamento</li>
+                            </ul>
+                        </div>
+                        <div class="step-image">
+                            <img src="images/desenvolvimento/testes.jpg" alt="Equipe realizando testes" style="max-width: 100%; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-feature">
+                    <div class="project-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <div class="project-feature-content">
+                        <h3>Conteúdo Técnico</h3>
+                        <p>Pesquisa baseada em documentação oficial de soluções HCI como Nutanix, VMware vSAN e Microsoft Azure Stack HCI, além de artigos acadêmicos e estudos de caso. Desenvolvemos materiais explicativos com infográficos e exemplos práticos para facilitar o aprendizado.</p>
+                        <p>Todo o conteúdo foi validado por profissionais da área de TI e professores da instituição, garantindo precisão técnica e didática eficiente.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--   *** Conteúdo Principal Ends ***   -->
+    </div>
+ 
+    <!--   *** Website Container Ends ***   -->
+
+    <!--   *** Link To JQuery ***   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <!--   *** Link To Owl Carousel ***   -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <!--   *** Link To Custom Script File ***   -->
+    <script type="text/javascript" src="script.js"></script>
+</body>
+<div id="rodape"></div>
+        <script>
+            async function loadHTML(id, file) {
+                try {
+                    const res = await fetch(file);
+                    if (!res.ok) throw new Error(`Erro ao carregar ${file}`);
+                    const html = await res.text();
+                    document.getElementById(id).innerHTML = html;
+                } catch (err) {
+                    console.error(err);
+                    document.getElementById(id).innerHTML = `<p>Erro ao carregar ${file}</p>`;
+                }
+            }
+
+            // Carregar os componentes
+            loadHTML("menu", "menu.html");
+            loadHTML("rodape", "rodape.html");
+        </script>
+</html>
