@@ -2483,6 +2483,30 @@ nav ul li a:hover {
     100% { transform: rotate(360deg); }
 }
 
+.table-container {
+	overflow-x: auto;
+	width: 100%;
+}
 
+.comparison-table {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 700px;
+	/* Largura mínima para evitar quebra feia em mobile */
+}
+
+.comparison-table th,
+.comparison-table td {
+	border: 1px solid #ccc;
+	padding: 10px;
+	text-align: left;
+}
+
+@media (max-width: 768px) {
+	.comparison-table {
+		font-size: 14px;
+	}
+}
+ 
 
   

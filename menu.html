@@ -1,69 +1,108 @@
 <style>
-	/* Estilo padrão */
-	.nav-container {
-		display: block;
-	}
+    /* Estilo padrão para o container do menu (para telas maiores) */
+    .nav-container {
+        display: block; /* Garante que o menu ocupe a largura disponível */
+    }
 
-	/* Esconde o botão de menu por padrão */
-	.menu-toggle {
-		display: none;
-		background: none;
-		border: none;
-		font-size: 40px;
-		cursor: pointer;
-		color: white;
-		margin-right: 50px;
-	}
+    .nav-container nav {
+        display: flex; /* Alinha os itens da nav horizontalmente */
+        justify-content: flex-end; /* Joga os itens para a direita */
+        align-items: center; /* Alinha verticalmente ao centro */
+    }
 
-	/* Para telas menores, exibir o botão e esconder o menu inicialmente */
-	@media (max-width: 1030px) {
-		.nav-container {
-			display: none;
-			/* Esconde o menu */
-		}
+    /* Estilos para a lista de itens (para telas maiores - horizontal) */
+    .nav-container nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex; /* Coloca os itens da lista em linha */
+    }
 
-		.menu-toggle {
-			display: block;
-			/* Mostra o botão */
-		}
+    .nav-container nav ul li {
+        margin-left: 20px; /* Espaço entre os itens */
+    }
 
-		/* Quando o menu estiver ativo, exibir o menu */
-		.nav-container.active {
-			display: block;
-		}
-	}
+    .nav-container nav ul li a {
+        display: block; /* Garante que o link ocupe o espaço do li */
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #ffffff; /* Cor do texto do link */
+    }
+
+    /* Esconde o botão de menu por padrão (em telas maiores) */
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 40px;
+        cursor: pointer;
+        color: white;
+        margin-right: 50px;
+    }
+
+    /* Estilos para telas menores */
+    @media (max-width: 1030px) {
+        .nav-container {
+            display: none; /* Esconde o menu em telas menores inicialmente */
+        }
+
+        .menu-toggle {
+            display: block; /* Mostra o botão em telas menores */
+        }
+
+        /* Quando o menu estiver ativo em telas menores */
+        .nav-container.active {
+            display: block; /* Exibe o menu */
+        }
+
+        /* Garante que os itens da lista fiquem um embaixo do outro em telas menores */
+        .nav-container.active nav ul {
+            display: block; /* Força a lista a ocupar largura total e empilhar itens */
+        }
+
+        .nav-container.active nav ul li {
+            display: block; /* Garante que cada item ocupe uma linha */
+            margin-left: 0; /* Remove a margem esquerda */
+        }
+
+        .nav-container.active nav ul li a {
+            display: block; /* Garante que o link ocupe toda a largura do item */
+            padding: 10px 15px;
+        }
+    }
 </style>
-<header>
-	<div class="container header-content">
-		<div class="logo">
-			<a href="index.html" class="logo">
-				<img width="100px" src="images/Logos/9.png" alt="Logo">
-			</a>
-		</div>
-		<!-- Botão de menu para telas menores -->
-		<button class="menu-toggle" aria-label="Abrir menu">
-			&#9776; <!-- ícone de hambúrguer -->
-		</button>
-		<div class="nav-container">
-			<nav>
-				<ul>
-					<li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
-					<li><a href="sobre-projeto.html" class="nav-link"><i class="fas fa-info-circle"></i> Sobre
-							Projeto</a></li>
-					<li><a href="hiperconvergencia.html"><i class="fas fa-info-circle"></i> Sobre HCI</a></li>
-					<li><a href="fontes.html"><i class="fas fa-info-circle"></i> Fontes</a></li>
-					<li><a href="quiz_v2.html"><i class="fa-solid fa-circle-question"></i> QUIZ</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</header>
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-    		const menuToggle = document.querySelector('.menu-toggle');
-    		const navContainer = document.querySelector('.nav-container');
 
-    		menuToggle.addEventListener('click', function () {
-      		navContainer.classList.toggle('active');
-    	});
+<header>
+    <div class="container header-content" style="display: flex; align-items: center; justify-content: space-between;">
+        <div class="logo">
+            <a href="index.html" class="logo">
+                <img width="100px" src="images/Logos/9.png" alt="Logo">
+            </a>
+            <button class="menu-toggle" aria-label="Abrir menu">
+                &#9776;
+            </button>
+        </div>
+        <div class="nav-container">
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
+                    <li><a href="sobre-projeto.html" class="nav-link"><i class="fas fa-info-circle"></i> Sobre Projeto</a></li>
+                    <li><a href="hiperconvergencia.html"><i class="fas fa-info-circle"></i> Sobre HCI</a></li>
+                    <li><a href="fontes.html" class="nav-link"><i class="fas fa-info-circle"></i> Fontes</a></li>
+                    <li><a href="quiz_v2.html" class="nav-link"><i class="fa-solid fa-circle-question"></i> QUIZ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navContainer = document.querySelector('.nav-container');
+
+        menuToggle.addEventListener('click', function () {
+            navContainer.classList.toggle('active');
+        });
+    });
 </script>

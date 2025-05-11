@@ -662,20 +662,33 @@
 <div id="menu"></div>
 <script>
     async function loadHTML(id, file) {
-        try {
-            const res = await fetch(file);
-            if (!res.ok) throw new Error(`Erro ao carregar ${file}`);
-            const html = await res.text();
-            document.getElementById(id).innerHTML = html;
-        } catch (err) {
-            console.error(err);
-            document.getElementById(id).innerHTML = `<p>Erro ao carregar ${file}</p>`;
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error(`Erro ao carregar ${file}`);
+        const html = await res.text();
+        document.getElementById(id).innerHTML = html;
+  
+        // Executar o script do menu APÓS a inserção do HTML
+        if (file === "menu.html") {
+          const menuToggle = document.querySelector('.menu-toggle');
+          const navContainer = document.querySelector('.nav-container');
+  
+          if (menuToggle && navContainer) {
+            menuToggle.addEventListener('click', function () {
+              navContainer.classList.toggle('active');
+            });
+          }
         }
+      } catch (err) {
+        console.error(err);
+        document.getElementById(id).innerHTML = `<p>Erro ao carregar ${file}</p>`;
+      }
     }
-
+  
     // Carregar os componentes
     loadHTML("menu", "menu.html");
-</script>
+    loadHTML("rodape", "rodape.html");
+  </script>
 
 <body>
     <div class="container main-content">
@@ -842,7 +855,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Quiz Firebase v2. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Quiz Hiper-Infra. Todos os direitos reservados.</p>
     </footer>
 
     <!-- Firebase SDK (v9+ modular) -->

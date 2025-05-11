@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <!--  *****   Link To Custom CSS Style Sheet   *****  -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--  *****   Link To Font Awsome Icons   *****  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <!--  *****   Link To Owl Carousel   *****  -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiper-Infra | Sobre o Projeto</title>
+</head>
+<div id="menu"></div>
+
+<body>
+
+        <div class="hiper-content">
+            <section id="Privacidade" class="hiper-section">
+                <h2>Política de Privacidade</h2>
+                <p>Última atualização: 10/05/2025</p>
+                <p>Esta Política de Privacidade descreve como o site coleta, usa e compartilha suas informações pessoais quando você usa nosso site.</p>
+                <h3>Informações que Coletamos</h3>
+                <p>Podemos coletar as seguintes informações quando você usa nosso site:</p>
+                <ul>
+                    <li>Informações de cadastro para o Quiz (nome do usuário)</li>
+                    <li>Dados de navegação (IP, páginas visitadas, tempo no site)</li>
+                </ul>
+
+                <h3>Como Usamos Suas Informações</h3>
+                <p>Utilizamos suas informações para:</p>
+                <ul>
+                    <li>Fornecer e manter nosso serviço</li>
+                    <li>Notificá-lo sobre alterações em nosso serviço</li>
+                    <li>Permitir que você participe de recursos interativos</li>
+                    <li>Melhorar nosso site</li>
+                </ul>
+
+                <h3>Compartilhamento de Dados</h3>
+                <p>Não vendemos suas informações pessoais. Podemos compartilhar dados com:</p>
+                <ul>
+                    <li>Prestadores de serviços que nos auxiliam na operação do site</li>
+                    <li>Autoridades legais quando exigido por lei</li>
+                    <li>Sucessores em caso de fusão ou aquisição</li>
+                </ul>
+            </section>
+
+            <section id="Uso" class="hiper-section">
+                <h2>Termos de Uso</h2>
+
+                <p>Ao acessar e usar este site, você concorda em cumprir estes Termos de Uso.</p>
+
+                <h3>Uso Aceitável</h3>
+                <p>Você concorda em usar este site apenas para fins legais e de maneira que não infrinja os direitos de
+                    terceiros.</p>
+
+                <h3>Propriedade Intelectual</h3>
+                <p>Todo o conteúdo deste site, incluindo textos, gráficos, logotipos e software, é propriedade do grupo Hiper-Infra ou de seus licenciadores e está protegido por leis de direitos autorais.</p>
+
+                <h3>Limitação de Responsabilidade</h3>
+                <p>O grupo Hiper-Infra não será responsável por quaisquer danos diretos, indiretos, incidentais ou
+                    consequenciais resultantes do uso ou incapacidade de usar este site.</p>
+            </section>
+
+            <section id="Cookies" class="hiper-section">
+                <h2>Cookies</h2>
+
+                <p>Nosso site usa cookies para melhorar sua experiência. Cookies são pequenos arquivos de texto
+                    armazenados no seu dispositivo.</p>
+
+                <h3>Tipos de Cookies que Utilizamos</h3>
+                <ul>
+                    <li>Cookies essenciais: necessários para o funcionamento do site</li>
+                    <li>Cookies de desempenho: nos ajudam a entender como os visitantes usam o site</li>
+                    <li>Cookies de funcionalidade: lembram suas preferências</li>
+                    <li>Cookies de publicidade: usados para exibir anúncios relevantes</li>
+                </ul>
+
+                <h3>Gerenciamento de Cookies</h3>
+                <p>Você pode configurar seu navegador para recusar todos ou alguns cookies. No entanto, isso pode afetar
+                    a funcionalidade do site.</p>
+            </section>
+        </div>
+</body>
+
+<div id="rodape"></div>
+<script>
+    async function loadHTML(id, file) {
+        try {
+            const res = await fetch(file);
+            if (!res.ok) throw new Error(`Erro ao carregar ${file}`);
+            const html = await res.text();
+            document.getElementById(id).innerHTML = html;
+
+            // Executar o script do menu APÓS a inserção do HTML
+            if (file === "menu.html") {
+                const menuToggle = document.querySelector('.menu-toggle');
+                const navContainer = document.querySelector('.nav-container');
+
+                if (menuToggle && navContainer) {
+                    menuToggle.addEventListener('click', function () {
+                        navContainer.classList.toggle('active');
+                    });
+                }
+            }
+        } catch (err) {
+            console.error(err);
+            document.getElementById(id).innerHTML = `<p>Erro ao carregar ${file}</p>`;
+        }
+    }
+
+    // Carregar os componentes
+    loadHTML("menu", "menu.html");
+    loadHTML("rodape", "rodape.html");
+</script>
+
+</html>
