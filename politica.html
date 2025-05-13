@@ -120,5 +120,33 @@
     loadHTML("menu", "menu.html");
     loadHTML("rodape", "rodape.html");
 </script>
+    <script>
+        // Loader global
+        document.addEventListener('DOMContentLoaded', function () {
+            const globalLoader = document.querySelector('.global-loader');
 
+            // Mostrar loader ao clicar em links
+            document.querySelectorAll('a').forEach(link => {
+                if (link.getAttribute('href') && !link.getAttribute('href').startsWith('#')) {
+                    link.addEventListener('click', function (e) {
+                        if (!this.classList.contains('no-loader')) {
+                            e.preventDefault();
+                            globalLoader.style.display = 'flex';
+                            setTimeout(() => {
+                                window.location.href = this.getAttribute('href');
+                            }, 500);
+                        }
+                    });
+                }
+            });
+
+            // Esconder loader quando a página carrega
+            setTimeout(() => {
+                globalLoader.style.opacity = '0';
+                setTimeout(() => {
+                    globalLoader.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+    </script>
 </html>
