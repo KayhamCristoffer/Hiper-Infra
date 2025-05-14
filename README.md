@@ -8,6 +8,7 @@ Motivados por essa inovação, os estudantes da UniDrummond:
 - Juan de Souza Roque,
 - Kaio Gonçalves,
 - Kayham Cristoffer Guilhermino de Oliveira,
+
 uniram seus conhecimentos em um projeto de extensão universitária.
 
 Equipe trabalhando no projeto
