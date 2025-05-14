@@ -13,7 +13,7 @@ import { getDatabase, ref, get, set, push, child, remove, update, query, orderBy
 const db = window.firebaseDb;
 
 // --- Constantes ---
-const ADMIN_PASSWORD = "admin123"; // SENHA PARA ACESSO ADMIN - ALTERE SE DESEJAR
+const ADMIN_PASSWORD = "Admin@Pex2025"; // SENHA PARA ACESSO ADMIN - ALTERE SE DESEJAR
 const TOTAL_QUESTIONS_PER_QUIZ = 10;
 
 // --- Referências aos Elementos HTML ---
